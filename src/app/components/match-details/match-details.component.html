@@ -1,0 +1,560 @@
+<div class="main match_detail_pg">
+  <div class="main_row">
+    <div class="page_area">
+      <app-header></app-header>
+      <div class="sidebar_area">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="content_area">
+        <div class="title_bar">
+          <h3>Match Detail</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Match-Details</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="inner mt-0">
+          <div class="container-fluid px-0">
+            <div class="card-custom">
+              <div class="row">
+                <div class="col-lg-8 leftCol">
+                  <div class="card-title">
+                    <h5>{{marketName}}</h5>
+                  </div>
+                  <div class="football_score" *ngIf="inplay && sportsId==1 && scoreData?.length>0">
+                    <ul class="inner">
+                      <li class="team_name text_right">
+                        <h5>{{scoreData[0].score.home.name}}</h5>
+                      </li>
+                      <li class="score">
+                        <p class="score_area"><span>{{scoreData[0].score.home.score}}</span> -
+                          <span>{{scoreData[0].score.away.score}}</span>
+                        </p>
+
+                      </li>
+                      <li class="team_name">
+                        <h5>{{scoreData[0].score.away.name}}</h5>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="live_status" *ngIf="inplay && sportsId==4 && scoreData?.length>0">
+                    <div class="match_detail">
+                      <ul>
+                        <li>
+                          <div class="team" *ngIf="scoreData[0].score.home.inning1!=undefined">
+                            <p class="name">{{scoreData[0].score.home.name}}</p>
+                            <p class="score">{{scoreData[0].score.home.inning1.runs}} /
+                              {{scoreData[0].score.home.inning1.wickets}}</p>
+                            <p class="over">({{scoreData[0].score.home.inning1.overs}})</p>
+                          </div>
+                          <div class="team" *ngIf="scoreData[0].score.home.inning1==undefined">
+                            <p class="name">{{scoreData[0].score.home.name}}</p>
+                            <p class="score">Yet To Bat</p>
+
+                          </div>
+
+                        </li>
+                        <li>
+                          <div class="team" *ngIf="scoreData[0].score.away.inning1!=undefined">
+                            <p class="name">{{scoreData[0].score.away.name}}</p>
+                            <p class="score">{{scoreData[0].score.away.inning1.runs}} /
+                              {{scoreData[0].score.away.inning1.wickets}}</p>
+                            <p class="over">({{scoreData[0].score.away.inning1.overs}})</p>
+                          </div>
+                          <div class="team" *ngIf="scoreData[0].score.away.inning1==undefined">
+                            <p class="name">{{scoreData[0].score.away.name}}</p>
+                            <p class="score">Yet To Bat</p>
+                          </div>
+
+                        </li>
+                      </ul>
+                      <div class="status">
+                        <p class="current">Bowler: {{scoreData[0].stateOfBall.bowlerName}}</p>
+                        <p class="batsman">Batman: {{scoreData[0].stateOfBall.batsmanName}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tennis_score" *ngIf="inplay && sportsId==2 && scoreData?.length>0">
+                    <ul class="inner">
+                      <li class="team_name text_right">
+                        <h5>{{scoreData[0].score.home.name}}</h5>
+                      </li>
+                      <li class="score">
+                        <p class="session"><span>Set{{scoreData[0].currentSet}}</span> |
+                          <span>Game{{scoreData[0].currentGame}}</span>
+                        </p>
+                        <p class="score">{{scoreData[0].score.home.score}} : {{scoreData[0].score.away.score}}</p>
+                      </li>
+                      <li class="team_name">
+                        <h5>{{scoreData[0].score.away.name}}</h5>
+                      </li>
+                    </ul>
+                    <div class="tennis_points">
+                      <ul>
+                        <li>
+                          <div class="count">
+                            <span class="win_wid">Set-Win</span>
+                          </div>
+                        </li>
+                        <li>
+                          <h6 class="match_name">{{scoreData[0].score.home.name}}</h6>
+                          <div class="count">
+                            <span *ngFor="let data of scoreData[0].score.home.gameSequence">{{data}}</span>
+
+                            <span class="win_wid">{{scoreData[0].score.home.sets}}</span>
+                          </div>
+                        </li>
+                        <li>
+                          <h6 class="match_name">{{scoreData[0].score.away.name}}</h6>
+                          <div class="count">
+                            <span *ngFor="let data of scoreData[0].score.away.gameSequence">{{data}}</span>
+
+                            <span class="win_wid">{{scoreData[0].score.away.sets}}</span>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table eventMain_table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            <div class="tab_title">
+                              <div class="left">
+                                <div class="dropdown">
+                                  <button class="btn p-0" type="button" data-toggle="modal"
+                                    data-target="#positionModal">
+                                    <i class="fa fa-bars" aria-hidden="true"></i></button>
+                                </div>
+                                Match Odds
+                              </div>
+                              <div class="toggle_btn">
+                                <label class="switch">
+                                  <input type="checkbox" [checked]="Status" (click)="changeStatus()">
+                                  <span class="slider round" (change)="changeStatus()"></span>
+                                </label>
+                              </div>
+                            </div>
+                          </th>
+                          <th class="text-center rate_wid">Back</th>
+                          <th class="text-center rate_wid">Lay</th>
+                          <th class="wid_set br-right"></th>
+                          <th class="wid_set br-left"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of uISERVICE.retunData.runners;let i=index">
+                          <td>
+                            <strong>{{data.handicap}}</strong>
+                            <p [ngClass]="{'red':rPl[i]<0,'green':rPl[i]>=0}">{{rPl[i]}}</p>
+                          </td>
+                          <td colspan="2" class="p-0">
+                            <div class="rates">
+                              <table class="table mb-0">
+                                <tbody>
+                                  <tr>
+                                    <td class="back">
+                                      <span class="odds"><strong>{{data.availableToBack[0].price}}</strong></span>
+                                      <span class="size">{{data.availableToBack[0].size}}</span>
+                                    </td>
+                                    <td class="lay">
+                                      <span class="odds"><strong>{{data.availableToLay[0].price}}</strong></span>
+                                      <span class="size">{{data.availableToLay[0].size}}</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <div class="suspend"
+                                [ngClass]="{'active':uISERVICE.retunData.status=='CLOSED' || Status || data.availableToBack[0].price=='0'}">
+                                Suspended
+                              </div>
+                            </div>
+                          </td>
+                          <td class="space br-right"></td>
+                          <td class="space br-left"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="fancy_table" *ngIf="sportsId==4">
+                    <div class="table-responsive-lg">
+                      <table class="table eventMain_table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Session Runs</th>
+                            <th class="wid_set hide_lg">&nbsp;</th>
+                            <th class="wid_set hide_lg">&nbsp;</th>
+                            <th class="text-center wid_set">No</th>
+                            <th class="text-center wid_set">Yes</th>
+                            <th class="wid_set br-right">&nbsp;</th>
+                            <th class="wid_set br-left">&nbsp;</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let fancyData of uISERVICE.retunData.session;let i=index">
+                            <td><strong class="over_hide">
+                                <div class="dropdown">
+                                  <button class="btn p-0" type="button" id="session_drop" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                  </button>
+                                  <div class="dropdown-menu session_btn" aria-labelledby="session_drop">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="radionBtn{{i}}"
+                                        id="radionBtn1{{i}}" value="option1" [checked]="fancyData.isActive"
+                                        (click)="setIsActive(i,true)">
+                                      <label class="form-check-label" for="radionBtn1{{i}}">
+                                        Active
+                                      </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="radionBtn{{i}}"
+                                        id="radionBtn2{{i}}" value="option2" [checked]="!fancyData.isActive"
+                                        (click)="setIsActive(i,false)">
+                                      <label class="form-check-label" for="radionBtn2{{i}}">
+                                        Suspended
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <p>{{fancyData.RunnerName}}</p>
+                              </strong>
+                              <span class="ladder_icon" data-toggle="modal" data-target="#laderModal"><img
+                                  src="assets/img/ladder.svg" alt=""
+                                  (click)="getFancyPosition(fancyData.RunnerName,fancyData.SelectionId)"></span>
+                            </td>
+                            <td class="right_tab" colspan="6">
+                              <div class="inner_container">
+                                <div class="odds_area">
+                                  <table class="table">
+                                    <tr>
+                                      <td class="hide_lg"></td>
+                                      <td class="lay">
+                                        <span class="score"><strong>{{fancyData.LayPrice1}}</strong></span>
+                                        <span class="size">{{fancyData.LaySize1}}</span>
+                                      </td>
+                                      <td class="back">
+                                        <span class="score"><strong>{{fancyData.BackPrice1}}</strong></span>
+                                        <span class="size">{{fancyData.BackSize1}}</span>
+                                      </td>
+
+                                      <td class="space br-right"></td>
+                                      <td class="space br-left"></td>
+
+                                    </tr>
+                                  </table>
+                                </div>
+                                <div class="ball_running" [ngClass]="{'balling':fancyData.BackPrice1=='Ball'}">
+                                  <p><strong>Ball Running</strong></p>
+                                </div>
+                                <div class="suspended"
+                                  [ngClass]="{'active':!fancyData.isActive || fancyData.GameStatus=='SUSPENDED' || fancyData.BackPrice1=='0'}">
+                                  <p><strong>Suspended</strong></p>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 pl-lg-0">
+                  <div class="card user_position_tab shadow_none">
+                    <div class="card-title mb-0">
+                      <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#userTable"
+                        aria-expanded="false" aria-controls="userTable">User Position <span class="icon"><i
+                            class="fas fa-angle-down"></i></span></button>
+                    </div>
+                    <div class="collapse" id="userTable">
+                      <div class="table_area shadow_none">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>User Name</th>
+                                <th>Role</th>
+                                <th *ngFor="let rName of returnData">{{rName.RunnerName}}</th>
+                                <th *ngIf="returnData?.length==2">The Draw</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let plData of currentPosition">
+                                <td (click)="getInnerCurrentPosition(plData[0].role,plData[0].userName)">
+                                  {{plData[0].userName}}</td>
+                                <td>{{plData[0].role}}</td>
+                                <td [ngClass]="{'red':plData[0].pL<0,'green':plData[0].pL>=0}">{{plData[0].pL}}</td>
+                                <td [ngClass]="{'red':plData[1].pL<0,'green':plData[1].pL>=0}">{{plData[1].pL}}</td>
+                                <td [ngClass]="{'red':plData[2].pL<0,'green':plData[2].pL>=0}" *ngIf="plData?.length>2">
+                                  {{plData[2].pL}}</td>
+                                <td class="green" *ngIf="plData?.length==2">0</td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="tabs_area bet_tabs">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                          <li class="nav-item" role="presentation" (click)="getMarketBets('MATCH_ODDS')">
+                            <a class="nav-link active" id="matched-tab" data-toggle="tab" href="#matched" role="tab"
+                              aria-controls="matched" aria-selected="true">Matched </a>
+                            <button class="btn" type="button" data-toggle="modal" data-target="#matchedModal"><i
+                                class="fas fa-info-circle"></i></button>
+                          </li>
+                          <li class="nav-item" role="presentation" (click)="getMarketBets('Fancy')">
+                            <a class="nav-link" id="session-tab" data-toggle="tab" href="#matched" role="tab"
+                              aria-controls="matched" aria-selected="flase">Session</a>
+                            <button class="btn" type="button" data-toggle="modal" data-target="#matchedModal"><i
+                                class="fas fa-info-circle"></i></button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="tab-content bet_tables">
+                        <div class="tab-pane fade show active" id="matched" role="tabpanel"
+                          aria-labelledby="matched-tab">
+                          <div class="table_area">
+                            <div class="table-responsive btm_table">
+                              <ul>
+                                <li>
+                                  <input type="text" id="username" class="form-control"
+                                    placeholder="SearchByUserName...." (keyup)="searchBets($event.target.value)">
+                                </li>
+                              </ul>
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>S.No</th>
+                                    <th style="text-align: center;">#</th>
+                                    <th>Match Name</th>
+                                    <th>Market Name</th>
+                                    <th>Selection Name</th>
+                                    <th>Odds</th>
+                                    <th>Stack</th>
+                                    <th>User</th>
+                                    <th>Bet Type</th>
+                                    <th>Ip Address</th>
+                                    <th>Date</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class="back" *ngFor="let betData of betsData;let i=index"
+                                    [ngClass]="{'lay':betData.BetType=='Lay'}">
+                                    <td>{{i+1}}</td>
+                                    <td><button class="btn bet_delete" type="button" data-toggle="modal"
+                                        data-target="#deleteModal"><i class="fas fa-trash-alt"
+                                          (click)="getBetIdType(betData.id,betData.MarketType)"></i></button>
+                                    </td>
+                                    <td>{{betData.MatchName}}</td>
+                                    <td>{{betData.MarketType}}</td>
+                                    <td>{{betData.SelectionName}}</td>
+                                    <td>{{betData.Odds}}</td>
+                                    <td>{{betData.Stack}}</td>
+                                    <td>{{betData.UserName}}</td>
+                                    <td><span>{{betData.BetType}}</span></td>
+                                    <td>
+                                      <p class="ip_address">{{betData.IP_Address}}</p>
+                                    </td>
+                                    <td>{{betData.createdOn |date: 'dd-MM-y h:mm:ss a' : '+1100'}}</td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="matchedModal" tabindex="-1" aria-labelledby="matchedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-top">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="matchedModalLabel">Bets</h5>
+        <button type="button" id="closeBetBtn" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="filter_area border-0">
+          <ul>
+            <li>
+              <label for="username">User Name</label>
+              <input type="text" id="username" class="form-control" (keyup)="searchBets($event.target.value)">
+            </li>
+            <li>
+              <label for="bet_type">Bet Type</label>
+              <select name="" id="bet_type" class="custom-select" (change)="getBetType($event.target.value)">
+                <option value="All">All</option>
+                <option value="Back">Back</option>
+                <option value="Lay">Lay</option>
+              </select>
+            </li>
+          </ul>
+        </div>
+        <div class="table_area">
+          <div class="table-responsive btm_table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="text-align: center;">#</th>
+                  <th>Match Name</th>
+                  <th>Market Name</th>
+                  <th>Selection Name</th>
+                  <th>Odds</th>
+                  <th>Stack</th>
+                  <th>User</th>
+                  <th>Bet Type</th>
+                  <th>Ip Address</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let betData of betsData">
+                  <td><button class="btn bet_delete" type="button" data-toggle="modal" data-target="#deleteModal"
+                      (click)="getBetIdType(betData.id,betData.MarketType)"><i class="fas fa-trash-alt"></i></button>
+                  </td>
+                  <td>{{betData.MatchName}}</td>
+                  <td>{{betData.MarketType}}</td>
+                  <td>{{betData.SelectionName}}</td>
+                  <td>{{betData.Odds}}</td>
+                  <td>{{betData.Stack}}</td>
+                  <td>{{betData.UserName}}</td>
+                  <td><span class="back" [ngClass]="{'lay':betData.BetType=='Lay'}">{{betData.BetType}}</span></td>
+                  <td>{{betData.IP_Address}}</td>
+                  <td>{{betData.createdOn |date: 'dd-MM-y h:mm:ss a' : '+1100'}}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="laderModal" tabindex="-1" aria-labelledby="laderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="laderModalLabel">{{fancyName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table_area">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Runs</th>
+                <th>Position</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cpData of CurrentPosition;let k=index">
+                <th scope="row">{{cpData.RunValue}}</th>
+                <td [ngClass]="{'colorGreen':cpData.Pl>=0,'colorRed':cpData.Pl<0}">
+                  {{cpData.Pl}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModal">Delete Bet</h5>
+        <button type="button" id="closeBtn" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="pb-2">Please Enter Password for confirmation</h5>
+        <input type="password" placeholder="Password" name="Password" [(ngModel)]="newPassword"
+          class="form-control mb-4">
+        <button class="btn btn-primary ml-auto" type="button" (click)="deleteUserBets()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loader *ngIf="uISERVICE.loader"></app-loader>
+<app-msg-componenet *ngIf="msgBool"></app-msg-componenet>
+
+
+<div class="modal fade" id="positionModal" tabindex="-1" aria-labelledby="positionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header pos_modal">
+        <h5 class="modal-title" id="positionModalLabel">User Position</h5>
+        <button type="button" class="btn btn-primary back">Back</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+     
+      <div class="modal-body">
+        <div class="table_area shadow_none">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>User Name</th>
+                  <th>Role</th>
+                  <th *ngFor="let rName of returnData">{{rName.RunnerName}}</th>
+                  <th *ngIf="returnData?.length==2">The Draw</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let plData of currentPosition">
+                  <td (click)="getInnerCurrentPosition(plData[0].role,plData[0].userName)">
+                    {{plData[0].userName}}</td>
+                  <td>{{plData[0].role}}</td>
+                  <td [ngClass]="{'red':plData[0].pL<0,'green':plData[0].pL>=0}">{{plData[0].pL}}</td>
+                  <td [ngClass]="{'red':plData[1].pL<0,'green':plData[1].pL>=0}">{{plData[1].pL}}</td>
+                  <td [ngClass]="{'red':plData[2].pL<0,'green':plData[2].pL>=0}" *ngIf="plData?.length>2">
+                    {{plData[2].pL}}</td>
+                  <td class="green" *ngIf="plData?.length==2">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

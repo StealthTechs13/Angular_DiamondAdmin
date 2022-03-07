@@ -1,0 +1,300 @@
+<div class="main">
+  <div class="main_row">
+    <div class="sidebar_area">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="page_area">
+      <app-header></app-header>
+      <div class="content_area">
+        <div class="title_bar">
+          <h3>Profit/Loss Settlement</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item"><a routerLink="/user">User</a></li>
+
+              <li class="breadcrumb-item active"><a routerLink="/profit_loss/{{marketId}}/{{userId}}">
+                  ProfitLoss</a></li>
+              <li class="breadcrumb-item active" *ngIf="pageType=='FANCY'"><a
+                  routerLink="/fancy_profit_loss/{{marketId}}/{{userId}}">
+                  fancy_profit_loss</a></li>
+              <li class="breadcrumb-item active" aria-current="page">ProfitLoss Statement</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="inner">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 px-0">
+                <div class="card p-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="table_area">
+                          <h6 class="pb-2">Plus Account</h6>
+                          <div class="table-responsive">
+                            <table class="table positive_tab">
+                              <thead>
+                                <tr>
+                                  <th>Username</th>
+                                  <th>Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let plusData of plusData">
+                                  <td>{{plusData.userName}}</td>
+                                  <td class="amount">{{plusData.profitLoss | number : '1.2-2'}}</td>
+                                </tr>
+
+                                <tr>
+                                  <td><b>Total</b></td>
+                                  <td><b>{{total | number : '1.2-2'}}</b></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="table_area">
+                          <h6 class="pb-2">Minus Account</h6>
+                          <div class="table-responsive">
+                            <table class="table negative">
+                              <thead>
+                                <tr>
+                                  <th>Username</th>
+                                  <th>Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let minusData of minusData">
+                                  <td>{{minusData.userName}}</td>
+                                  <td class="amount">{{minusData.profitLoss | number : '1.2-2'}}</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Total</b></td>
+                                  <td><b>{{total | number : '1.2-2'}}</b></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="table_area mt-3">
+                          <ul class="filter_bar">
+                            <li><input type="text" placeholder="UserName Search" class="form-control"
+                                (keyup)="keyUp($event.target.value)"></li>
+                          </ul>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Match Name</th>
+                                  <th>Market Name</th>
+                                  <th>Selection Name</th>
+                                  <th>Odds</th>
+                                  <th>Stack</th>
+                                  <th>User</th>
+                                  <th>Bet Type</th>
+                                  <th>Bet Status</th>
+                                  <th>Result</th>
+                                  <th>Exp/Profit</th>
+                                  <th>Ip Address</th>
+                                  <th>Date</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let returnData of uISERVICE.retunData; let i=index">
+                                  <td>{{i+1}}</td>
+                                  <td>{{returnData.MatchName}}</td>
+                                  <td>MATCH_ODDS</td>
+                                  <td>{{returnData.SelectionName}}</td>
+                                  <td>{{returnData.Odds}}</td>
+                                  <td>{{returnData.Stack}}</td>
+                                  <td>{{returnData.UserName}}</td>
+                                  <td><span class="back"
+                                      [ngClass]="{'lay':returnData.BetType=='Lay' || returnData.BetType=='No'}">{{returnData.BetType}}</span>
+                                  </td>
+                                  <td
+                                    [ngClass]="{'colorRed':returnData.BetStatus=='Lost','positive':returnData.BetStatus=='Win'}">
+                                    <strong>{{returnData.BetStatus}}</strong>
+                                  </td>
+                                  <td *ngIf="returnData.sportsId==11" data-toggle="modal" data-target="#resultmodal"
+                                    (click)="getResultCards(returnData.MarketId,returnData.Role,returnData.MatchName)"
+                                    style="cursor: pointer;">{{returnData.Role}}</td>
+                                  <td *ngIf="returnData.sportsId!=11">{{returnData.Role}}</td>
+                                  <td class="colorRed" *ngIf="returnData.BetStatus=='Lost'">
+                                    <strong>{{returnData.Exposure | number : '1.2-2'}}</strong>
+                                  </td>
+                                  <td class="positive" *ngIf="returnData.BetStatus=='Win'">
+                                    <strong>{{returnData.ReturnBalance | number : '1.2-2'}}</strong>
+                                  </td>
+                                  <td>{{returnData.IP_Address}}</td>
+                                  <td>{{returnData.createdOn |date: 'dd-MM-y h:mm:ss a' : '+1100'}}</td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="resultmodal" tabindex="-1" aria-labelledby="resultmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resultmodalLabel">{{Market}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3 class="rounderId"><strong>Round Id:</strong> {{roundId}}</h3>
+
+        <div class="row" *ngIf="typeMarket==0">
+          <div class="col-md-6 br_right">
+            <h2>Player A</h2>
+            <div class="result_img">
+              <img src="/assets/img/cards/{{resultCards[0]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[1]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[2]}}.png" alt="">
+            </div>
+            <div class="winner-icon mt-3" *ngIf="winnerName=='PlayerA'"><i class="fas fa-trophy mr-2"></i></div>
+          </div>
+          <div class="col-md-6">
+            <h2>Player B</h2>
+            <div class="result_img">
+              <img src="/assets/img/cards/{{resultCards[3]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[4]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[5]}}.png" alt="">
+            </div>
+            <div class="winner-icon mt-3" *ngIf="winnerName=='PlayerB'"><i class="fas fa-trophy mr-2"></i></div>
+          </div>
+        </div>
+        <div class="row" *ngIf="typeMarket==3">
+          <div class="col-md-6 br_right">
+            <h2>Tiger</h2>
+            <div class="result_img">
+              <img src="/assets/img/cards/{{resultCards[0]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[1]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[2]}}.png" alt="">
+            </div>
+            <div class="winner-icon mt-3" *ngIf="winnerName=='Tiger'"><i class="fas fa-trophy mr-2"></i></div>
+          </div>
+          <div class="col-md-6">
+            <h2>Lion</h2>
+            <div class="result_img">
+              <img src="/assets/img/cards/{{resultCards[3]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[4]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[5]}}.png" alt="">
+            </div>
+            <div class="winner-icon mt-3" *ngIf="winnerName=='Lion'"><i class="fas fa-trophy mr-2"></i></div>
+          </div>
+          <div class="col-md-6">
+            <h2>Dragon</h2>
+            <div class="result_img">
+              <img src="/assets/img/cards/{{resultCards[6]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[7]}}.png" alt="">
+              <img src="/assets/img/cards/{{resultCards[8]}}.png" alt="">
+            </div>
+            <div class="winner-icon mt-3" *ngIf="winnerName=='Dragon'"><i class="fas fa-trophy mr-2"></i></div>
+          </div>
+        </div>
+        <div class="row" *ngIf="typeMarket==7 ">
+          <div class="col-md-12 ">
+            <div class="result_img">
+              <img src="/assets/img/cards/{{resultCards.CardName}}.png" alt="">
+            </div>
+          </div>
+          <div class="col-12 text-center mt-3">
+            <div class="winner-board">
+              <div class="mb-1">
+                <span class="text-success">Result:</span> 
+                <span>{{resultCards.CardType}} || {{resultCards.Colour}} || {{resultCards.EvenOdd}} || {{resultCards.card}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row andaBaharModal" *ngIf="typeMarket==122">
+          <div class="col-md-12  pt-3">
+            <div class="row align-items-center">
+              <div class="col-1">
+                <div class="row_title">SA</div>
+                <div class="row_title">SB</div>
+              </div>
+              <div class="col-1">
+                <img src="/assets/img/cards/{{resultCards[0]}}.png">
+              </div>
+              <div class="col-10">
+                <div class="card_cs upper">
+                  <div class="row">
+                    <div class="col-1 pb-2">
+                      <img src="/assets/img/cards/{{resultCards[2]}}.png">
+                    </div>
+                    <div class="col-11">
+                      <div class="row">
+                        <div class="col-10">
+                          <div class="scroll pb-2" id="con_scroll">
+                            <div class="inner">
+                              <div class="img" *ngFor="let adata of andarCards ;let a=index">
+                                <img src="/assets/img/cards/{{adata}}.png">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="winner-label" *ngIf="winnerName=='SA'">
+                            <i class="fas fa-trophy text-success"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card_cs bottom">
+                  <div class="row">
+                    <div class="col-1">
+                      <img src="/assets/img/cards/{{resultCards[1]}}.png">
+                    </div>
+                    <div class="col-11">
+                      <div class="row">
+                        <div class="col-10">
+                          <div class="scroll pb-2">
+                            <div class="inner">
+                              <div class="img" *ngFor="let bdata of baharCards;let b=index">
+                                <img src="/assets/img/cards/{{bdata}}.png">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-2">
+                          <div class="winner-label" *ngIf="winnerName=='SB'">
+                            <i class="fas fa-trophy text-success"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="main">
+    <div class="main_row">
+        <div class="sidebar_area">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="page_area">
+            <app-header></app-header>
+            <div class="content_area">
+                <div class="title_bar">
+                    <h3>Match List</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/add_matches">CompetitionList</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">MatchList</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="inner">
+                    <div class="container-fluid">
+                        <div class="table_area">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>S No.</th>
+                                        <th>Market</th>
+                                        <th>Event Id</th>
+                                        <th>Open Date</th>
+                                        <th>Bet Allowed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of uISERVICE.retunData;let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data.event.name}}</td>
+                                        <td>{{data.event.id}}</td>
+                                        <td>{{data.event.openDate | date:'M/d/yy, h:mm a'}}</td>
+                                        <td><i class="fas fa-check-circle" (click)="openMatch(i,data.event.id,data.event.name,data.event.openDate)"></i></td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loader  *ngIf="uISERVICE.loader"></app-loader>
+<app-msg-componenet *ngIf="msgBool"></app-msg-componenet>

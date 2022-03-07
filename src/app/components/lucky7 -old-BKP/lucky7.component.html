@@ -1,0 +1,421 @@
+<div class="main match_detail_pg">
+    <div class="main_row">
+        <div class="page_area">
+            <app-header></app-header>
+            <div class="sidebar_area">
+                <app-sidebar></app-sidebar>
+            </div>
+            <div class="content_area">
+                <div class="title_bar">
+                    <h3>{{marketName}}</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Match-Details</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="inner">
+                    <div class="container-fluid px-0">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="round_id mb-1" *ngIf="returnData?.length>0">
+                                        <p>Round ID: {{marketId}} | Min: {{minStake}} |
+                                            Max:{{maxStake}}</p>
+                                    </div>
+                                    <div class="iframe_area">
+                                        <iframe width="100%" height="320" src="https://video.lotusbook9mm.com/v2/luck7"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen *ngIf="type==7"></iframe>
+
+                                        <iframe width="100%" height="320" src="http://video.lotusbook9mm.com/v2/luck7b"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen *ngIf="type==8"></iframe>
+                                        <!-- Cards Section for 20-20 teenpatti -->
+                                        <div class="cards" *ngIf="marketId!='0' && marketId!=null">
+                                            <div class="player_card">
+                                                <h6>Index</h6>
+                                                <ul>
+                                                    <li><img src="/assets/img/cards/{{returnData[0].data.t1[0].C1}}.png"
+                                                            alt=""></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="timer_area">
+                                            <div class="clock"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="lucky_card_detail  m-t-10">
+                                        <div class="lucky_card_content">
+                                            <div class="row ">
+                                                <div class="col-5 text-center">
+                                                    <b>{{returnData[0].data.t2[0].rate}}</b>
+                                                </div>
+                                                <div class="col-2"></div>
+                                                <div class="col-5 text-center">
+                                                    <b>{{returnData[0].data.t2[1].rate}}</b>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5 text-center">
+                                                    <button class="text-uppercase btn-theme"
+                                                        [ngClass]="{'suspended-lock':returnData[0].data.t2[0].gstatus==0 || returnData[0].data.t2[0].rate=='0'}">
+                                                        <b>LOW Card</b>
+                                                    </button>
+                                                    <div class="m-t-5" style="color: black;">0</div>
+                                                </div>
+                                                <div class="col-2 text-center card-seven">
+                                                    <img src="/assets/img/lucky-card/7.jpg">
+                                                </div>
+                                                <div class="col-5 text-center">
+                                                    <button class="text-uppercase btn-theme"
+                                                        [ngClass]="{'suspended-lock':returnData[0].data.t2[1].gstatus==0 || returnData[0].data.t2[1].rate=='0'}">
+                                                        <b>HIGH Card</b>
+                                                    </button>
+                                                    <div class="m-t-5" style="color: black;">0</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 text-right"><span
+                                                        class="m-r-5"><b>Min:</b><span>{{minStake}}</span></span>
+                                                    <span class="m-r-5"><b>Max:</b><span>{{maxStake}}</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-t-10">
+                                        <div class="lucky_card_content">
+                                            <div class="mob-flex row">
+                                                <div class="col-6">
+                                                    <div class="lucky_card_detail lucky-seven-content m-t-10">
+                                                        <div class="row">
+                                                            <div class="col-6 text-center">
+                                                                <b>{{returnData[0].data.t2[2].rate}}</b>
+                                                            </div>
+                                                            <div class="col-6 text-center">
+                                                                <b>{{returnData[0].data.t2[3].rate}}</b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row m-t-10">
+                                                            <div class="col-6 text-center"><button
+                                                                    class="text-uppercase btn-theme suspended-lock"><b>Even</b></button>
+                                                            </div>
+                                                            <div class="col-6 text-center"><button
+                                                                    class="text-uppercase btn-theme suspended-lock"><b>Odd</b></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 text-center">
+                                                                <div class="m-t-5" style="color: black;">0</div>
+                                                            </div>
+                                                            <div class="col-6 text-center">
+                                                                <div class="m-t-5" style="color: black;">0</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-right"><span
+                                                                    class="m-r-5"><b>Min:</b><span>{{minStake}}</span></span>
+                                                                <span
+                                                                    class="m-r-5"><b>Max:</b><span>{{maxStake}}</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="lucky_card_detail lucky-seven-content m-t-10">
+                                                        <div class="row">
+                                                            <div class="col-6 text-center">
+                                                                <b>{{returnData[0].data.t2[5].rate}}</b>
+                                                            </div>
+                                                            <div class="col-6 text-center">
+                                                                <b>{{returnData[0].data.t2[4].rate}}</b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row m-t-10">
+                                                            <div class="col-6 text-center">
+                                                                <button class="text-uppercase btn-theme suspended-lock">
+                                                                    <img src="/assets/img/lucky-card/icon1.svg">
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-6 text-center">
+                                                                <button class="text-uppercase btn-theme suspended-lock">
+                                                                    <img src="/assets/img/lucky-card/icon2.svg">
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6 text-center">
+                                                                <div class="m-t-5" style="color: black;">0</div>
+                                                            </div>
+                                                            <div class="col-6 text-center">
+                                                                <div class="m-t-5" style="color: black;">0</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 text-right"><span
+                                                                    class="m-r-5"><b>Min:</b><span>{{minStake}}</span></span>
+                                                                <span
+                                                                    class="m-r-5"><b>Max:</b><span>{{maxStake}}</span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="lucky_card_detail m-t-10">
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <b>{{returnData[0].data.t2[15].rate}}</b>
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-10">
+                                            <div class="col-12 text-center card-seven">
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/1.jpg"
+                                                            class="m-r-5 m-l-3 suspended-lock"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/2.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/3.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/4.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card//5.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card//6.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card//7.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card//8.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card//9.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/10.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/11.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/12.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <div class="suspended-lock"><img src="/assets/img/lucky-card/13.jpg"
+                                                            class="m-r-5 m-l-3"></div>
+                                                    <div>
+                                                        <div class="m-t-5" style="color: black;">0</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 text-right">
+                                                <span class="m-r-5"><b>Min:</b><span>{{minStake}}</span>
+                                                </span>
+                                                <span class="m-r-5"><b>Max:</b><span>{{maxStake}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="last_result" *ngIf="resultData?.length>0">
+                                        <div class="title">
+                                            <h4>Last Result</h4>
+                                            <!-- <a [routerLink]="['/teenpatti_winners']">View All</a> -->
+                                        </div>
+
+                                        <ul class="winners">
+                                            <li *ngFor="let rData of resultData[0].data;let i=index"><button
+                                                    class="btn btn-primary"
+                                                    [ngClass]="{'playerb':rData.result=='2','playerc':rData.result=='0'}"
+                                                    type="button"><span *ngIf="rData.result=='1'">H</span>
+                                                    <span *ngIf="rData.result=='2'">L</span>
+                                                    <span *ngIf="rData.result=='0'">T</span></button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 pl-lg-0">
+                                    <div class="card user_position_tab shadow_none">
+                                        <div class="card-title mb-0"><button type="button" data-toggle="collapse"
+                                                data-target="#userTable" aria-expanded="true" aria-controls="userTable"
+                                                class="btn btn-primary">User Position <span class="icon"><i
+                                                        class="fas fa-angle-down"></i></span></button></div>
+                                        <div id="userTable" class="collapse">
+                                            <div class="table_area shadow_none">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr *ngIf="type!=3">
+                                                                <th>User Name</th>
+                                                                <th>Role</th>
+                                                                <th>Player A</th>
+                                                                <th>Player B</th>
+                                                            </tr>
+                                                            <tr *ngIf="type==3">
+                                                                <th>User Name</th>
+                                                                <th>Role</th>
+                                                                <th>Tiger</th>
+                                                                <th>Lion</th>
+                                                                <th>Dragon</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let plData of currentPosition">
+                                                                <td
+                                                                    (click)="getInnerCurrentPosition(plData[0].role,plData[0].userName)">
+                                                                    {{plData[0].userName}}</td>
+                                                                <td>{{plData[0].role}}</td>
+                                                                <td
+                                                                    [ngClass]="{'red':plData[0].pL<0,'green':plData[0].pL>=0}">
+                                                                    {{plData[0].pL}}</td>
+                                                                <td
+                                                                    [ngClass]="{'red':plData[1].pL<0,'green':plData[1].pL>=0}">
+                                                                    {{plData[1].pL}}</td>
+                                                                <td [ngClass]="{'red':plData[2].pL<0,'green':plData[2].pL>=0}"
+                                                                    *ngIf="plData?.length>2">
+                                                                    {{plData[2].pL}}</td>
+                                                                <td class="green" *ngIf="plData?.length==2">0</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="tabs_area bet_tabs">
+                                                <ul id="myTab" role="tablist" class="nav nav-tabs">
+                                                    <li role="presentation" class="nav-item"><a id="matched-tab"
+                                                            data-toggle="tab" href="#matched" role="tab"
+                                                            aria-controls="matched" aria-selected="true"
+                                                            class="nav-link active">Matched </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="tab-content bet_tables">
+                                                <div id="matched" role="tabpanel" aria-labelledby="matched-tab"
+                                                    class="tab-pane fade active show">
+                                                    <div class="table_area">
+                                                        <div class="table-responsive btm_table">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>S.No</th>
+                                                                        <th style="text-align: center;">#</th>
+                                                                        <th>Match Name</th>
+                                                                        <th>Market Name</th>
+                                                                        <th>Selection Name</th>
+                                                                        <th>Odds</th>
+                                                                        <th>Stack</th>
+                                                                        <th>User</th>
+                                                                        <th>Bet Type</th>
+                                                                        <th>Ip Address</th>
+                                                                        <th>Date</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="back"
+                                                                        *ngFor="let betData of betsData;let i=index"
+                                                                        [ngClass]="{'lay':betData.BetType=='Lay'}">
+                                                                        <td>{{i+1}}</td>
+                                                                        <td><button class="btn bet_delete" type="button"
+                                                                                data-toggle="modal"
+                                                                                data-target="#deleteModal"><i
+                                                                                    class="fas fa-trash-alt"
+                                                                                    (click)="getBetIdType(betData.id,betData.MarketType)"></i></button>
+                                                                        </td>
+                                                                        <td>{{betData.MatchName}}</td>
+                                                                        <td>{{betData.MarketType}}</td>
+                                                                        <td>{{betData.SelectionName}}</td>
+                                                                        <td>{{betData.Odds}}</td>
+                                                                        <td>{{betData.Stack}}</td>
+                                                                        <td>{{betData.UserName}}</td>
+                                                                        <td><span>{{betData.BetType}}</span></td>
+                                                                        <td>
+                                                                            <p class="ip_address">{{betData.IP_Address}}
+                                                                            </p>
+                                                                        </td>
+                                                                        <td>{{betData.createdOn |date: 'dd-MM-y h:mm:ss
+                                                                            a' : '+1100'}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <app-loader *ngIf="uISERVICE.loader"></app-loader>
+<app-msg-componenet *ngIf="msgBool"></app-msg-componenet> -->

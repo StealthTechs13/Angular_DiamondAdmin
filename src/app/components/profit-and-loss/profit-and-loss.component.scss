@@ -1,0 +1,52 @@
+.card {
+    .card-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background: #22a357;
+        color: #fff;
+        margin: 0;
+
+        h5 {
+            font-size: 16px;
+        }
+    }
+}
+
+tbody {
+
+    a {
+        color: #f5a623;
+    }
+
+    td {
+        span {
+            color: #000;
+            width: 46px;
+            display: inline-block;
+            text-align: center;
+
+            &.back {
+                background: #72BBEF;
+            }
+
+            &.lay {
+                background: #FAA9BA;
+            }
+        }
+    }
+}
+
+.filter_bar {
+    margin: 0;
+    padding: 10px 5px;
+}
+
+.search_bar {
+    padding-bottom: 10px;
+
+    input {
+        max-width: 200px;
+    }
+}

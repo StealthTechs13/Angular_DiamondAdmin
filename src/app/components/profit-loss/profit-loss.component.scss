@@ -1,0 +1,56 @@
+.card {
+  .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #22a357;
+    color: #fff;
+    margin: 0;
+
+    h5 {
+      font-size: 16px;
+    }
+  }
+}
+
+.table_area {
+  table.table {
+    td {
+      &.status {
+        span {
+          color: #00b300;
+
+          &.negative {
+            color: red;
+          }
+        }
+      }
+    }
+
+    tbody {
+      background-color: #1A262B;
+
+      td {
+        a {
+          color: #f5a623;
+        }
+      }
+    }
+  }
+}
+
+.loss {
+  color: red;
+}
+
+.profit {
+  color: #00b300;
+}
+
+.action_th {
+  min-width: 100px;
+  max-width: 100px;
+  width: 100px;
+}
+

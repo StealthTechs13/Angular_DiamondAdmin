@@ -1,0 +1,164 @@
+<div class="main">
+  <div class="main_row">
+    <div class="page_area">
+      <app-header></app-header>
+      <div class="sidebar_area">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="content_area">
+        <div class="title_bar">
+          <h3>Add User</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/user">User</a></li>
+              <li class="breadcrumb-item active" aria-current="page">UserSetting</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="inner">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 px-0">
+                <div class="table_area">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Sport Name</th>
+                          <th>Match Commission Type</th>
+                          <th>Fancy Commission Type</th>
+                          <th>Match Comm.</th>
+                          <th>Session Comm.</th>
+                          <th>Odds Max Stack</th>
+                          <th>Odds Min Stack</th>
+                          <th>Session Min Stack</th>
+                          <th>Session Max Stack</th>
+                          <th>Max Odds</th>
+                          <th>Max Profit</th>
+                          <th>Bet Delay</th>
+                          <th>Session Delay</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of uISERVICE.retunData;let i=index">
+                          <td>{{data.SportsName}}</td>
+                          <td>
+                            <span *ngIf="!data.status">
+                              <Select class="form-control" disabled>
+                                <option selected>{{data.MatchComType}}</option>
+                              </Select>
+                            </span>
+  
+                            <span class="edit_field" *ngIf="data.status">
+                              <select class="form-control" (change)="editFilterForeCasts(i,$event.target.value,'Match')">
+                                <option value="0" selected>{{data.MatchComType}}</option>
+                                <option value="Plus">Plus</option>
+                                <option value="Minus">Minus</option>
+                                <option value="None">None</option>
+  
+                              </select>
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">
+                              <Select class="form-control" disabled>
+                                <option selected>{{data.FancyComType}}</option>
+                              </Select>
+                            </span>
+  
+                            <span class="edit_field" *ngIf="data.status">
+                              <select class="form-control" (change)="editFilterForeCasts(i,$event.target.value,'Fancy')">
+                                <option value="0" selected>{{data.FancyComType}}</option>
+                                <option value="Plus">Plus</option>
+                                <option value="Minus">Minus</option>
+                                <option value="None">None</option>
+  
+                              </select>
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.MatchCom}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="MatchCom" [(ngModel)]="data.MatchCom">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.SessinCom}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="SessinCom" [(ngModel)]="data.SessinCom">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.StakeMax}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="StakeMax" [(ngModel)]="data.StakeMax">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.StakeMin}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="StakeMin" [(ngModel)]="data.StakeMin">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.SessionMinStake}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="SessionMinStake"
+                                [(ngModel)]="data.SessionMinStake">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.SessionMaxStake}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="SessionMaxStake"
+                                [(ngModel)]="data.SessionMaxStake">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.OddsMax}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="OddsMax"
+                                [(ngModel)]="data.OddsMax">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.MaxProfit}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="MaxProfit" [(ngModel)]="data.MaxProfit">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.BetDelay}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="BetDelay" [(ngModel)]="data.BetDelay">
+                            </span>
+                          </td>
+                          <td>
+                            <span *ngIf="!data.status">{{data.FancyDelay}}</span>
+                            <span class="edit_field" *ngIf="data.status">
+                              <input type="text" class="form-control" name="FancyDelay" [(ngModel)]="data.FancyDelay">
+                            </span>
+                          </td>
+  
+                          <td *ngIf="uISERVICE.Role=='Admin'">
+                            <button class="btn" type="button" *ngIf="!data.status"><i class="far fa-edit"
+                                (click)="editRecord(i)"></i></button>
+                            <button class="btn" type="button" *ngIf="data.status"><i class="far fa-save"
+                                (click)="saveRecord(i)"></i></button>
+                          </td>
+                        </tr>
+  
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-msg-componenet *ngIf="msgBool"></app-msg-componenet>

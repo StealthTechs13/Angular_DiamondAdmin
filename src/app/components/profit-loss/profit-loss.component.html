@@ -1,0 +1,62 @@
+<div class="main">
+  <div class="main_row">
+    <div class="sidebar_area">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="page_area">
+      <app-header></app-header>
+      <div class="content_area">
+        <div class="title_bar">
+          <h3>Profit/Loss</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item"><a routerLink="/user">User</a></li>
+              <li class="breadcrumb-item active"><a routerLink="/detailed_report/{{userId}}/{{uISERVICE.childRole}}/{{uISERVICE.userName}}"> Detailed_report</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Profit Loss</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="inner">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 px-0">
+                    <div class="table_area">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>S.No.</th>
+                              <th>Market Name</th>
+                              <th width="18%">Market Type</th>
+                              <th width="18%">P&L</th>
+                              <th width="18%">Commission</th>
+                              <th class="text-right action_th">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let returnData of uISERVICE.retunData; let i=index">
+                              <td>{{i+1}}</td>
+                              <td href="javascript:void(0)">{{returnData.MarketName}}</td>
+                              <td>{{returnData.marketType}}</td>
+                              <td [ngClass]="{'loss':returnData.profitLoss<0,'profit':returnData.profitLoss>=0}">
+                                {{returnData.profitLoss | number : '1.2-2'}}</td>
+                              <td>{{returnData.commission | number : '1.2-2'}}</td>
+                              <td class="text-right show_bet" *ngIf="returnData.marketType=='MATCH_ODDS'"><a
+                                routerLink="/profit_loss_statement/{{markeId}}/MATCH/{{userId}}/0">Show Bet</a></td>
+                              <td class="text-right show_bet" *ngIf="returnData.marketType=='Fancy'"><a
+                                  routerLink="/fancy_profit_loss/{{returnData.marketId}}/{{userId}}">Show Fancy</a></td>
+
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
